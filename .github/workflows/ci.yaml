@@ -1,0 +1,28 @@
+name: CI
+on: [push]
+jobs:
+    eslint:
+        name: Lint code
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v3
+
+            - uses: actions/setup-node@v3
+
+            - name: Cache dependencies
+              uses: actions/cache@v3
+              with:
+                  path: ~/.npm
+                  key: npm-${{ hashFiles('package-lock.json') }}-lint
+                  restore-keys: npm-
+
+            - name: Install Packages
+              run: npm ci
+
+            - name: Run Linter
+              run: npm run lint
+
+            - name: Run Testing
+              run: npm run test
