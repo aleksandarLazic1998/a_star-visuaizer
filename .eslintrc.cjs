@@ -29,5 +29,10 @@ module.exports = {
         'lines-between-class-members': 'off',
         '@typescript-eslint/lines-between-class-members': 'off',
         'no-nested-ternary': 'off',
+        '@typescript-eslint/no-unused-vars': [
+            'warn',
+            { argsIgnorePattern: '^_' },
+        ],
+        'arrow-body-style': 'off',
     },
 }

@@ -6,16 +6,24 @@ interface IProps {
     isEnd: boolean
     columnPosition: number
     rowPosition: number
+    isWall: boolean
 }
 
 function Node(props: IProps) {
-    const { isStart, isEnd, columnPosition, rowPosition } = props
+    const { isStart, isEnd, columnPosition, rowPosition, isWall } = props
 
-    const classes = isStart ? ' node--start' : isEnd ? ' node--end' : ''
+    const classes = isStart
+        ? ' node--start'
+        : isEnd
+        ? ' node--end'
+        : isWall
+        ? ' node--wall'
+        : ''
 
     return (
         <div
-            className={`node${classes} ${`node-${rowPosition}-${columnPosition}`}`}
+            id={`node-${rowPosition}-${columnPosition}`}
+            className={`node${classes}`}
         >
             {isStart && 'MO Start'}
             {isEnd && 'MO End'}
