@@ -34,5 +34,6 @@ module.exports = {
             { argsIgnorePattern: '^_' },
         ],
         'arrow-body-style': 'off',
+        'import/no-named-as-default': 'off',
     },
 }

@@ -1,11 +1,18 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { PreloadedState, configureStore } from '@reduxjs/toolkit'
 import rootReducer from './reducer'
 import apiSlice from './APISlice/rootAPISlice'
+import { RootState } from '../typescript/types/rootState'
 
-const store = configureStore({
-    reducer: rootReducer,
-    middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(apiSlice.middleware),
-})
+export function setupStore(preloadedState?: PreloadedState<RootState>) {
+    return configureStore({
+        reducer: rootReducer,
+        preloadedState,
+        middleware: (getDefaultMiddleware) => {
+            return getDefaultMiddleware({ serializableCheck: false }).concat(
+                apiSlice.middleware
+            )
+        },
+    })
+}
 
-export default store
+export default setupStore

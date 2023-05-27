@@ -1,12 +1,9 @@
-import ISpot from '../typescript/interfaces/ISpot'
+import ISpot from '../../typescript/interfaces/ISpot'
+import heruistic from './heruistic'
 
 interface IProps {
     startNode: ISpot
     endNode: ISpot
-}
-
-const heruistic = (neighbor: ISpot, endNode: ISpot) => {
-    return Math.abs(neighbor.x - neighbor.y) + Math.abs(endNode.x - endNode.y)
 }
 
 const AstarAlgorithm = ({
