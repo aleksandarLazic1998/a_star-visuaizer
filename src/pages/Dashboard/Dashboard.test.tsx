@@ -11,6 +11,6 @@ describe('App', () => {
                 <Dashboard />
             </AppTest>
         )
-        expect(screen.getByText('Hello World')).toBeVisible()
+        expect('path-find').toBeVisible()
     })
 })

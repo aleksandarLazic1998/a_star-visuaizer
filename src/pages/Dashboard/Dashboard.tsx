@@ -1,7 +1,8 @@
 import React from 'react'
+import PathFind from '../../component/PathFind'
 
 function Dashboard() {
-    return <div>Hello World</div>
+    return <PathFind />
 }
 
 export default Dashboard

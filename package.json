@@ -1,5 +1,5 @@
 {
-    "name": "react-ts-template",
+    "name": "fat_cat_a-star_task",
     "private": true,
     "version": "0.0.0",
     "type": "module",
@@ -13,10 +13,12 @@
         "husky": "cross-env CI=true npm run test && npm run lint"
     },
     "dependencies": {
+        "@reduxjs/toolkit": "^1.9.5",
         "axios": "^1.1.3",
         "cross-env": "^7.0.3",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
+        "react-redux": "^8.0.5",
         "react-router-dom": "^6.4.3"
     },
     "devDependencies": {

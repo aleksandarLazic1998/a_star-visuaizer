@@ -25,5 +25,9 @@ module.exports = {
         'no-tabs': 'off',
         '@typescript-eslint/comma-dangle': 'off',
         'no-param-reassign': 'off',
+        'react/no-this-in-sfc': 'off',
+        'lines-between-class-members': 'off',
+        '@typescript-eslint/lines-between-class-members': 'off',
+        'no-nested-ternary': 'off',
     },
 }

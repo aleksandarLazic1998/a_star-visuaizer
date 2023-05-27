@@ -1,0 +1,14 @@
+.node {
+    width: 40px;
+    height: 40px;
+    border: 1px solid black;
+    color: white;
+
+    &--start {
+        background: green;
+    }
+
+    &--end {
+        background: red;
+    }
+}
