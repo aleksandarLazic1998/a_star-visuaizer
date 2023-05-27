@@ -1,8 +1,8 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 import { describe, it } from 'vitest'
-import Dashboard from './pages/Dashboard/Dashboard'
-import AppTest from './test/PrepareApp'
+import AppTest from '../../test/PrepareApp'
+import Dashboard from './Dashboard'
 
 describe('App', () => {
     it('Should render App with dashboard page', () => {
@@ -11,6 +11,6 @@ describe('App', () => {
                 <Dashboard />
             </AppTest>
         )
-        expect('path-find').toBeVisible()
+        expect(screen.getByTestId('path-find')).toBeVisible()
     })
 })

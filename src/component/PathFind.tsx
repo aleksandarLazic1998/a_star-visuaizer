@@ -83,7 +83,11 @@ function PathFind() {
         </div>
     )
 
-    return <div className="path-find">{gridWithNode()}</div>
+    return (
+        <div className="path-find" data-testid="path-find">
+            {gridWithNode()}
+        </div>
+    )
 }
 
 export default PathFind
