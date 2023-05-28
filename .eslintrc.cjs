@@ -35,5 +35,6 @@ module.exports = {
         ],
         'arrow-body-style': 'off',
         'import/no-named-as-default': 'off',
+        'jsx-a11y/label-has-associated-control': 'off',
     },
 }

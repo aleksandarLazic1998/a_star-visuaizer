@@ -26,6 +26,7 @@ function Modal() {
         >
             <div className="modal" ref={containerRef}>
                 <button
+                    className="modal__close"
                     type="button"
                     onClick={() => dispatch(setModalComponent(''))}
                 >

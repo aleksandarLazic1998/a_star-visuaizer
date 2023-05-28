@@ -42,7 +42,7 @@ class Spot {
         this.h = 0
         this.neighbors = []
         this.previous = undefined
-        this.isWall = Math.random() < 0.3
+        this.isWall = Math.random() < 0.2
         this.rows = rows
         this.columns = columns
     }

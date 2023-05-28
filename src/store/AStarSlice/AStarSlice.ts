@@ -12,12 +12,12 @@ interface IState {
 
 const initialState: IState = {
     playGround: {
-        rows: 15,
-        columns: 15,
+        rows: 4,
+        columns: 4,
         startNodeRow: 0,
         startNodeColumn: 0,
-        endNodeRow: 14,
-        endNodeColumn: 14,
+        endNodeRow: 3,
+        endNodeColumn: 3,
     },
     grid: [],
     path: [],
