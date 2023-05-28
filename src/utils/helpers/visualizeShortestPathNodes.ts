@@ -1,6 +1,6 @@
-import ISpot from '../../typescript/interfaces/ISpot'
+import Spot from '../classes/Spot'
 
-const visualizeShortestPathNodes = (shortestPathNodes: ISpot[]) => {
+const visualizeShortestPathNodes = (shortestPathNodes: Spot[]) => {
     for (let i = 0; i < shortestPathNodes.length; i += 1) {
         setTimeout(() => {
             const node = shortestPathNodes[i]

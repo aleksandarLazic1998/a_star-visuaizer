@@ -1,37 +1,43 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import IPlayground from '../../typescript/interfaces/IPlayground'
-import ISpot from '../../typescript/interfaces/ISpot'
+import Spot from '../../utils/classes/Spot'
 
 interface IState {
     playGround: IPlayground
-    grid: ISpot[][]
-    path: ISpot[]
-    visitedNodes: ISpot[]
+    grid: Spot[][]
+    path: Spot[]
+    visitedNodes: Spot[]
+    listOfWalls: Spot[]
 }
 
 const initialState: IState = {
     playGround: {
-        rows: 5,
-        columns: 5,
+        rows: 15,
+        columns: 15,
         startNodeRow: 0,
         startNodeColumn: 0,
-        endNodeRow: 4,
-        endNodeColumn: 4,
+        endNodeRow: 14,
+        endNodeColumn: 14,
     },
     grid: [],
     path: [],
     visitedNodes: [],
+    listOfWalls: [],
 }
 
-const AStarSlice = createSlice({
+const aStarSlice = createSlice({
     name: '[Astar]',
     initialState,
     reducers: {
         setPlayground: (state, action: PayloadAction<IState['playGround']>) => {
             state.playGround = action.payload
         },
-        setGrid: (state, action: PayloadAction<IState['grid']>) => {
-            state.grid = action.payload
+        setGrid: (
+            state,
+            action: PayloadAction<{ grid: Spot[][]; listOfWalls: Spot[] }>
+        ) => {
+            state.grid = action.payload.grid
+            state.listOfWalls = action.payload.listOfWalls
         },
         setPath: (state, action: PayloadAction<IState['path']>) => {
             state.path = action.payload
@@ -46,5 +52,5 @@ const AStarSlice = createSlice({
 })
 
 export const { setPlayground, setGrid, setPath, setVisitedNodes } =
-    AStarSlice.actions
-export default AStarSlice
+    aStarSlice.actions
+export default aStarSlice

@@ -1,9 +1,8 @@
 import IPlayground from '../../typescript/interfaces/IPlayground'
-import ISpot from '../../typescript/interfaces/ISpot'
 import Spot from '../classes/Spot'
 
 interface IProps extends IPlayground {
-    grid: ISpot[][]
+    grid: Spot[][]
 }
 
 const createSpot = (props: IProps) => {
@@ -17,9 +16,11 @@ const createSpot = (props: IProps) => {
         endNodeColumn,
     } = props
 
+    const listOfWalls: Spot[] = []
+
     for (let i = 0; i < rows; i += 1) {
         for (let j = 0; j < columns; j += 1) {
-            grid[i][j] = new Spot({
+            const newSpot = new Spot({
                 i,
                 j,
                 startNodeRow,
@@ -29,8 +30,12 @@ const createSpot = (props: IProps) => {
                 rows,
                 columns,
             })
+            if (newSpot.isWall) listOfWalls.push(newSpot)
+            grid[i][j] = newSpot
         }
     }
+
+    return listOfWalls
 }
 
 export default createSpot

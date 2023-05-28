@@ -1,7 +1,7 @@
-import ISpot from '../../typescript/interfaces/ISpot'
+import Spot from '../classes/Spot'
 
 interface IProps {
-    grid: ISpot[][]
+    grid: Spot[][]
     rows: number
     columns: number
 }

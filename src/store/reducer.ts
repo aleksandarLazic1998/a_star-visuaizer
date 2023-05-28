@@ -1,10 +1,12 @@
 import { combineReducers } from '@reduxjs/toolkit'
 import apiSlice from './APISlice/rootAPISlice'
-import AStarSlice from './AStarSlice/AStarSlice'
+import aStarSlice from './AStarSlice/AStarSlice'
+import appSlice from './AppSlice/AppSlice'
 
 const reducers = {
     [apiSlice.reducerPath]: apiSlice.reducer,
-    astar: AStarSlice.reducer,
+    astar: aStarSlice.reducer,
+    app: appSlice.reducer,
 }
 
 const rootReducer = combineReducers(reducers)

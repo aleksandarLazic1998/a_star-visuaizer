@@ -1,5 +1,3 @@
-import ISpot from '../../typescript/interfaces/ISpot'
-
 interface IProps {
     i: number
     j: number
@@ -19,8 +17,8 @@ class Spot {
     g: number
     f: number
     h: number
-    neighbors: ISpot[]
-    previous: ISpot | undefined
+    neighbors: Spot[]
+    previous: Spot | undefined
     isWall: boolean
     rows: number
     columns: number
@@ -44,14 +42,12 @@ class Spot {
         this.h = 0
         this.neighbors = []
         this.previous = undefined
-        this.isWall = false
+        this.isWall = Math.random() < 0.3
         this.rows = rows
         this.columns = columns
-
-        if (Math.random() < 0.2) this.isWall = true
     }
 
-    createNeighbors(grid: ISpot[][]) {
+    createNeighbors(grid: Spot[][]) {
         const i = this.x
         const j = this.y
         if (i > 0) this.neighbors.push(grid[i - 1][j])

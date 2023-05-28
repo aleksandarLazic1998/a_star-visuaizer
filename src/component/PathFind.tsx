@@ -2,41 +2,91 @@
 import React from 'react'
 
 import './PathFind.scss'
+import { toast } from 'react-toastify'
 import Node from './Node'
 
-import visualizeShortestPathNodes from '../utils/helpers/visualizeShortestPathNodes'
 import useInitializeGrid from '../hooks/useInitializeGrid'
-import { useGlobalState } from '../hooks/reduxStoreHooks'
+import { useGlobalState, useSetGlobalState } from '../hooks/reduxStoreHooks'
+
+import AstarAlgorithm from '../utils/helpers/AstarAlgorithm'
+import visualizePaths from '../utils/helpers/visualizePaths'
+import { setModalComponent } from '../store/AppSlice/AppSlice'
 
 function PathFind() {
-    const { grid, path, visitedNodes } = useGlobalState((state) => state.astar)
+    const dispatch = useSetGlobalState()
+
+    const { grid } = useGlobalState((state) => state.astar)
+
+    const { startNodeRow, startNodeColumn, endNodeRow, endNodeColumn } =
+        useGlobalState((state) => state.astar.playGround)
 
     useInitializeGrid()
 
+    // function hasNonWallNeighbors(node: Spot): boolean {
+    //     const { neighbors } = node
+    //     for (let i = 0; i < neighbors.length; i += 1) {
+    //         if (!neighbors[i].isWall) {
+    //             return true
+    //         }
+    //     }
+    //     return false
+    // }
+
     const handleVisualize = () => {
-        for (let i = 0; i <= visitedNodes.length; i += 1) {
-            setTimeout(() => {
-                if (i === visitedNodes.length) {
-                    visualizeShortestPathNodes(path)
-                } else {
-                    const node = visitedNodes[i]
+        const startNode = grid[startNodeRow][startNodeColumn]
+        const endNode = grid[endNodeRow][endNodeColumn]
+        startNode.isWall = false
+        endNode.isWall = false
 
-                    const elementNode = document.getElementById(
-                        `node-${node.x}-${node.y}`
-                    )
+        const pathResponse = AstarAlgorithm(startNode, endNode)
 
-                    if (elementNode) {
-                        elementNode.className = 'node node--visited'
-                    }
-                }
-            }, i * 20)
+        let isError = false
+
+        if (pathResponse.error) {
+            toast.error(pathResponse.error)
+            isError = true
         }
+
+        // while (pathResponse.error) {
+        //     let foundWallToRemove = false
+
+        //     for (let row = 0; row < grid.length; row += 1) {
+        //         for (let col = 0; col < grid[row].length; col += 1) {
+        //             const node = grid[row][col]
+
+        //             if (node.isWall && hasNonWallNeighbors(node)) {
+        //                 node.isWall = false
+        //                 foundWallToRemove = true
+        //                 break
+        //             }
+        //         }
+
+        //         if (foundWallToRemove) break
+        //     }
+
+        //     if (foundWallToRemove) {
+        //         pathResponse = AstarAlgorithm(startNode, endNode)
+        //     } else break
+        // }
+
+        if (!isError) visualizePaths(pathResponse)
     }
 
     return (
         <div className="path-find" data-testid="path-find">
-            <button onClick={handleVisualize} type="button" tabIndex={0}>
+            <button
+                onClick={() => handleVisualize()}
+                type="button"
+                tabIndex={0}
+            >
                 Visualize Node
+            </button>
+            <button
+                onClick={() => dispatch(setModalComponent('SETTINGS'))}
+                type="button"
+                tabIndex={0}
+            >
+                Settings
             </button>
             <div>
                 {grid.map((row, rowIndex) => (

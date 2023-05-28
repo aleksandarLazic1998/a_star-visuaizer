@@ -1,36 +1,32 @@
-import ISpot from '../../typescript/interfaces/ISpot'
-import heruistic from './heruistic'
+import Spot from '../classes/Spot'
+import heuristic from './heuristic'
 
-interface IProps {
-    startNode: ISpot
-    endNode: ISpot
-}
-
-const AstarAlgorithm = ({
-    startNode,
-    endNode,
-}: // eslint-disable-next-line consistent-return
-IProps): { path: ISpot[]; visitedNodes: ISpot[]; error: null | string } => {
-    let openSet: ISpot[] = []
-    const closedSet: ISpot[] = []
-    const path: ISpot[] = []
-    const visitedNodes: ISpot[] = []
+const AstarAlgorithm = (
+    startNode: Spot,
+    endNode: Spot
+): { path: Spot[]; visitedNodes: Spot[]; error: null | string } => {
+    let openSet: Spot[] = []
+    const closedSet: Spot[] = []
+    const path: Spot[] = []
+    const visitedNodes: Spot[] = []
 
     openSet.push(startNode)
 
     while (openSet.length > 0) {
-        let leastIndex = 0
+        let lowestFScoreIndex = 0
 
         for (let i = 0; i < openSet.length; i += 1) {
-            if (openSet[i].f < openSet[leastIndex].f) {
-                leastIndex = i
+            if (openSet[i].f < openSet[lowestFScoreIndex].f) {
+                lowestFScoreIndex = i
             }
         }
 
-        const current = openSet[leastIndex]
+        const current = openSet[lowestFScoreIndex]
         visitedNodes.push(current)
 
-        if (current === endNode) {
+        const isPathToEndFound = current === endNode
+
+        if (isPathToEndFound) {
             let tempValue = current
 
             path.push(tempValue)
@@ -49,26 +45,31 @@ IProps): { path: ISpot[]; visitedNodes: ISpot[]; error: null | string } => {
 
         const neighborsList = current.neighbors
 
+        // Set FScore for all neighbors
         for (let i = 0; i < neighborsList.length; i += 1) {
             const neighbor = neighborsList[i]
 
-            if (!closedSet.includes(neighbor) && !neighbor.isWall) {
-                const tempGValue = neighbor.g + 1
-                let newPath = false
+            const isNextSpotValid =
+                !closedSet.includes(neighbor) && !neighbor.isWall
 
-                if (openSet.includes(neighbor)) {
-                    if (tempGValue < neighbor.g) {
-                        neighbor.g = tempGValue
-                        newPath = true
-                    }
+            if (isNextSpotValid) {
+                const tempGValue = current.g + 1
+                let newBetterPath = false
+
+                const isPathBetterThanBefore =
+                    openSet.includes(neighbor) && tempGValue < neighbor.g
+
+                if (isPathBetterThanBefore) {
+                    neighbor.g = tempGValue
+                    newBetterPath = true
                 } else {
                     neighbor.g = tempGValue
-                    newPath = true
+                    newBetterPath = true
                     openSet.push(neighbor)
                 }
 
-                if (newPath) {
-                    neighbor.h = heruistic(neighbor, endNode)
+                if (newBetterPath) {
+                    neighbor.h = heuristic(neighbor, endNode)
                     neighbor.f = neighbor.h + neighbor.g
                     neighbor.previous = current
                 }
